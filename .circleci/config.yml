@@ -5,6 +5,16 @@ jobs:
           - image: debian:jessie
         steps:
           - run: echo "Hello, world."
+    update_remotes:
+        docker:
+          - image: debian:jessie
+        steps:
+          - run: git clone git@github.com:facebook/react-native.git ~/react-native
+          - run: git clone git@github.com:facebook/react-native-website.git ~/react-native-website
+          - run: cd ~/react-native
+          - run: git remote add fork git@github.com:hramos/react-native.git
+          - run: git push fork master
+          
 workflows:
     version: 2
     main_workflow:
@@ -13,3 +23,4 @@ workflows:
               filters:
                 branches:
                   only: master
+          - update_remotes         
