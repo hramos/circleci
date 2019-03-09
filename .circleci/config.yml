@@ -1,0 +1,15 @@
+version: 2
+jobs:
+    helloworld: 
+        docker:
+          - image: debian:jessie
+        steps:
+          - run: echo "Hello, world."
+workflows:
+    version: 2
+    main_workflow:
+        jobs:
+          - helloworld:
+              filters:
+                branches:
+                  only: master
